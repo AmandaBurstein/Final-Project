@@ -1,7 +1,8 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Recipe from "./DisplayRecipe.jsx";
 import MaterialInputs from "./MaterialInputs.jsx";
-import { connect } from "react-redux";
+import Catalogue from "./GlazeCatalogue.jsx";
 
 class UnconnectedCalculator extends Component {
   constructor() {
@@ -141,6 +142,9 @@ class UnconnectedCalculator extends Component {
             recipe={this.state.recipe}
           />
         ) : null}
+        <div>
+          <Catalogue />
+        </div>
       </div>
     );
   };

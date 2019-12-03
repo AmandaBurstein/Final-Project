@@ -1,10 +1,15 @@
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import Calculator from "./Calculator.jsx";
 
 class App extends Component {
-    render = () => {
-        return "Hello world!"
-    }
+  render = () => {
+    return (
+      <div>
+        <div>Glaze Calculator</div>
+        <Calculator />
+      </div>
+    );
+  };
 }
 
-
-export default App
+export default App;

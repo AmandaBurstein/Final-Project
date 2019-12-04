@@ -3,13 +3,27 @@ import { connect } from "react-redux";
 
 class UnconnectedCatalogue extends Component {
   render = () => {
-    console.log("this.props.importedRecipes", this.props.importedRecipes);
     return (
       <div>
-        Catalogue
+        <h3>Catalogue</h3>
         <div>
           {this.props.importedRecipes.map(recipe => {
-            return <div>{recipe.recipeName}</div>;
+            return (
+              <div>
+                <h4>{recipe.recipeName}</h4>
+                <div>
+                  {recipe.ingredients.map(ingredient => {
+                    return (
+                      <div>
+                        <div>
+                          {ingredient.name} {ingredient.concentration}%
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            );
           })}
         </div>
       </div>

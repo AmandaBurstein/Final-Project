@@ -142,9 +142,6 @@ class UnconnectedCalculator extends Component {
             recipe={this.state.recipe}
           />
         ) : null}
-        <div>
-          <Catalogue />
-        </div>
       </div>
     );
   };

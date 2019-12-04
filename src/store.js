@@ -4,7 +4,8 @@ import * as R from "ramda";
 let initialState = {
   materials: [{ name: "", concentration: "", materialValue: "g" }],
   volumeValue: "ml",
-  importedRecipes: []
+  importedRecipes: [],
+  loggedIn: { username: "", loggedIn: true }
 };
 
 let reducer = (state, action) => {

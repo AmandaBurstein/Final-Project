@@ -17,6 +17,57 @@ app.use("/", express.static("build"));
 app.use("/", express.static("public"));
 app.use("/uploads", express.static("uploads"));
 
+app.post("/signup", upload.none(), (req, res) => {
+  console.log("/signup endpoint hit");
+  let username = req.body.username;
+  let password = req.body.password;
+  dbo.collection("users").findOne({ username: username }, (error, user) => {
+    if (error) {
+      console.log("/signup error", error);
+      res.send(JSON.stringify({ success: false, error }));
+      return;
+    }
+    if (user !== null) {
+      res.send(JSON.stringify({ success: false }));
+      return;
+    }
+    if (user === null) {
+      dbo
+        .collection("users")
+        .insertOne({ username: username, password: password })
+        .then(() => res.send({ success: true }))
+        .catch(error =>
+          res.send(
+            JSON.stringify({
+              success: false,
+              error
+            })
+          )
+        );
+    }
+  });
+});
+
+app.post("/login", upload.none(), (req, res) => {
+  console.log("/login endpoint hit");
+  let username = req.body.username;
+  let password = req.body.password;
+  dbo.collection("users").findOne({ username: username }, (error, user) => {
+    if (error) {
+      console.log("/login error", error);
+      res.send(JSON.stringify({ success: false, error }));
+      return;
+    }
+    if (user === null) {
+      res.send(JSON.stringify({ success: false }));
+      return;
+    }
+    if (user.password === password) {
+      res.send(JSON.stringify({ success: true }));
+    }
+  });
+});
+
 app.post("/calculate", upload.none(), (req, res) => {
   console.log("/calculate endpoint hit");
   let materials = JSON.parse(req.body.materials);
@@ -36,6 +87,7 @@ app.post("/calculate", upload.none(), (req, res) => {
 app.post("/add-recipe", upload.none(), (req, res) => {
   console.log("/add-recipe endpoint hit");
   console.log("req.body.materials", req.body.materials);
+  // let username =
   let recipeName = req.body.name;
   let materials = JSON.parse(req.body.materials);
   let ingredients = materials.map(material => {
@@ -51,6 +103,7 @@ app.post("/add-recipe", upload.none(), (req, res) => {
       recipeName: recipeName,
       recipeVolume: "100ml",
       ingredients: ingredients
+      // username:
     })
     .then(() => res.send(JSON.stringify({ success: true })))
     .catch(error =>
@@ -65,6 +118,7 @@ app.post("/add-recipe", upload.none(), (req, res) => {
 
 app.post("/get-recipe", upload.none(), (req, res) => {
   console.log("/get-recipe endpoint hit with", req.body.name);
+  // let username =
   let recipeName = req.body.name;
   let totalConcentration = req.body.concentration * 0.01;
   dbo

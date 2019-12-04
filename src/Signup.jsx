@@ -31,8 +31,12 @@ class UnconnectedSignup extends Component {
     let body = await response.text();
     console.log("/signup response", body);
     body = JSON.parse(body);
+    if (body.success === false) {
+      window.alert("Username already exists, please try again");
+    }
     if (body.success === true) {
       this.setState({ signedUp: true });
+      window.alert("Signup successful");
     }
   };
 
@@ -58,7 +62,9 @@ class UnconnectedSignup extends Component {
           </form>
           <form>
             <div>
-              <Link>Already have an account? Click here to log in</Link>
+              <Link to="/login">
+                Already have an account? Click here to log in
+              </Link>
             </div>
           </form>
         </div>

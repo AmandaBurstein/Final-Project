@@ -5,6 +5,7 @@ import Calculator from "./Calculator.jsx";
 import Catalogue from "./GlazeCatalogue.jsx";
 import Signup from "./Signup.jsx";
 import Login from "./Login.jsx";
+import Homepage from "./Homepage.jsx";
 
 class UnconnectedApp extends Component {
   render = () => {
@@ -17,13 +18,14 @@ class UnconnectedApp extends Component {
         </div>
       );
     return (
-      <BrowserRouter>
-        <div>
+      <div>
+        <BrowserRouter>
+          <Route exact={true} path="/" component={Homepage} />
           <Route exact={true} path="/catalogue" component={Calculator} />
           <Route exact={true} path="/signup" component={Signup} />
           <Route exact={true} path="/login" component={Login} />
-        </div>
-      </BrowserRouter>
+        </BrowserRouter>
+      </div>
     );
   };
 }

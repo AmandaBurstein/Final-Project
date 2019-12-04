@@ -87,7 +87,7 @@ app.post("/calculate", upload.none(), (req, res) => {
 app.post("/add-recipe", upload.none(), (req, res) => {
   console.log("/add-recipe endpoint hit");
   console.log("req.body.materials", req.body.materials);
-  // let username =
+  let username = req.body.username;
   let recipeName = req.body.name;
   let materials = JSON.parse(req.body.materials);
   let ingredients = materials.map(material => {
@@ -100,10 +100,10 @@ app.post("/add-recipe", upload.none(), (req, res) => {
   dbo
     .collection("glaze-recipes")
     .insertOne({
+      username: username,
       recipeName: recipeName,
       recipeVolume: "100ml",
       ingredients: ingredients
-      // username:
     })
     .then(() => res.send(JSON.stringify({ success: true })))
     .catch(error =>

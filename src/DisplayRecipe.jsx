@@ -14,6 +14,8 @@ class UnconnectedRecipe extends Component {
       return;
     }
     let data = new FormData();
+    console.log("this.props.loggedIn.username", this.props.loggedIn.username);
+    data.append("username", this.props.loggedIn.username);
     data.append("name", this.props.name);
     data.append("materials", JSON.stringify(this.props.materials));
     data.append("recipeVolume", this.props.recipeVolume);
@@ -30,17 +32,14 @@ class UnconnectedRecipe extends Component {
   render = () => {
     return (
       <div>
-        <div>Name: {this.props.name}</div>
+        <div>Recipe name: {this.props.name}</div>
         <div>
           Recipe volume: {this.props.recipeVolume} {this.props.volumeValue}
         </div>
         {this.props.recipe.map(material => {
           return (
             <div>
-              <div>{material.name}</div>
-              <div>
-                {material.amount} {material.materialValue}
-              </div>
+              {material.name} {material.amount} {material.materialValue}
             </div>
           );
         })}
@@ -54,7 +53,8 @@ let mapStateToProps = state => {
   return {
     materials: state.materials,
     volumeValue: state.volumeValue,
-    importedRecipes: state.importedRecipes
+    importedRecipes: state.importedRecipes,
+    loggedIn: state.loggedIn
   };
 };
 

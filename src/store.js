@@ -5,7 +5,7 @@ let initialState = {
   materials: [{ name: "", concentration: "", materialValue: "g" }],
   volumeValue: "ml",
   importedRecipes: [],
-  loggedIn: { username: "", loggedIn: true }
+  loggedIn: { username: "", loggedIn: false }
 };
 
 let reducer = (state, action) => {
@@ -48,6 +48,9 @@ let reducer = (state, action) => {
       ...state,
       importedRecipes: state.importedRecipes.concat(action.value)
     };
+  }
+  if (action.type === "login-success") {
+    return { ...state, loggedIn: { username: action.value, loggedIn: true } };
   }
   return state;
 };

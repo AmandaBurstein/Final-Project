@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 
 class UnconnectedLogin extends Component {
-  constructor(props) {
-    super(props);
+  constructor() {
+    super();
     this.state = {
       username: "",
       password: ""
@@ -25,10 +25,7 @@ class UnconnectedLogin extends Component {
     let data = new FormData();
     data.append("username", this.state.username);
     data.append("password", this.state.password);
-    let response = await fetch("/login", {
-      method: "POST",
-      body: data
-    });
+    let response = await fetch("/login", { method: "POST", body: data });
     let responseBody = await response.text();
     let body = JSON.parse(responseBody);
     if (!body.success) {
@@ -38,12 +35,12 @@ class UnconnectedLogin extends Component {
     alert("Login successful");
     this.props.dispatch({
       type: "login-success",
-      username: this.state.username
+      value: this.state.username
     });
   };
 
   render = () => {
-    if (this.props.loggedIn === false) {
+    if (this.props.loggedIn.loggedIn === false) {
       return (
         <div>
           <h1>Login </h1>
@@ -68,9 +65,11 @@ class UnconnectedLogin extends Component {
     return <Redirect to="/catalogue" />;
   };
 }
+
 let mapStateToProps = state => {
   return { loggedIn: state.loggedIn };
 };
+
 let Login = connect(mapStateToProps)(UnconnectedLogin);
 
 export default Login;

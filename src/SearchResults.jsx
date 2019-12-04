@@ -4,8 +4,8 @@ class SearchResults extends Component {
   render = () => {
     return (
       <div>
-        <div>Recipe name: {recipe.recipeName}</div>
-        {recipe.ingredients.map(ingredient => {
+        <div>Recipe name: {this.props.recipe.recipeName}</div>
+        {this.props.recipe.ingredients.map(ingredient => {
           return (
             <div>
               {ingredient.name} {ingredient.concentration}%

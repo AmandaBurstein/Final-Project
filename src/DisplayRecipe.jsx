@@ -13,12 +13,13 @@ class UnconnectedRecipe extends Component {
       window.alert("Recipe name already exists. Please enter a unique name");
       return;
     }
+    let colourTags = prompt("Enter colour families");
     let data = new FormData();
-    console.log("this.props.loggedIn.username", this.props.loggedIn.username);
     data.append("username", this.props.loggedIn.username);
     data.append("name", this.props.name);
     data.append("materials", JSON.stringify(this.props.materials));
     data.append("recipeVolume", this.props.recipeVolume);
+    data.append("colourTags", colourTags);
     let response = await fetch("/add-recipe", { method: "POST", body: data });
     let recipe = await response.text();
     recipe = JSON.parse(recipe);

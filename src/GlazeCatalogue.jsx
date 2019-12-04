@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import Search from "./Search.jsx";
 
 class UnconnectedCatalogue extends Component {
   render = () => {
     return (
       <div>
         <h3>Catalogue</h3>
+        <Search />
         <div>
           {this.props.importedRecipes.map(recipe => {
             return (

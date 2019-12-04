@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import SearchResults from "./SearchResults.jsx";
 
 class UnconnectedSearch extends Component {
   constructor() {
@@ -11,18 +13,18 @@ class UnconnectedSearch extends Component {
 
   handleDelete = event => {
     let query = event.target.value;
-    this.setState({ query: "" });
+    this.setState({ query: "", searchResults: [] });
   };
 
   handleSearchQuery = event => {
     let query = event.target.value;
-    this.setState({ query: query });
+    this.setState({ query: query, delete: false });
   };
 
-  handleSubmit = async () => {
+  handleSubmit = () => {
     event.preventDefault();
-    let searchResults = importedRecipes.filter(recipe => {
-      return recipe.colours === "this.state.query";
+    let searchResults = this.props.importedRecipes.filter(recipe => {
+      return recipe.colourTags.includes(this.state.query);
     });
     this.setState({ searchResults: searchResults });
   };
@@ -35,7 +37,7 @@ class UnconnectedSearch extends Component {
             <input
               type="text"
               value={this.state.query}
-              placeholder="Search..."
+              placeholder="Search by colour family..."
               onChange={this.handleSearchQuery}
             />
             <button onClick={this.handleSubmit}>Search</button>

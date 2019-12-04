@@ -90,6 +90,7 @@ app.post("/add-recipe", upload.none(), (req, res) => {
   let username = req.body.username;
   let recipeName = req.body.name;
   let materials = JSON.parse(req.body.materials);
+  let colourTags = req.body.colourTags;
   let ingredients = materials.map(material => {
     let concentration = material.concentration;
     return {
@@ -103,7 +104,8 @@ app.post("/add-recipe", upload.none(), (req, res) => {
       username: username,
       recipeName: recipeName,
       recipeVolume: "100ml",
-      ingredients: ingredients
+      ingredients: ingredients,
+      colourTags: colourTags
     })
     .then(() => res.send(JSON.stringify({ success: true })))
     .catch(error =>

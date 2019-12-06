@@ -10,6 +10,7 @@ class UnconnectedCalculator extends Component {
     this.state = {
       name: "",
       recipeVolume: "",
+      glazeBase: "",
       recipe: null
     };
   }
@@ -28,6 +29,10 @@ class UnconnectedCalculator extends Component {
 
   recipeVolumeChangeHandler = event => {
     this.setState({ recipeVolume: event.target.value });
+  };
+
+  baseHandler = event => {
+    this.setState({ glazeBase: event.target.value });
   };
 
   onSubmit = async () => {
@@ -53,6 +58,7 @@ class UnconnectedCalculator extends Component {
     console.log("clear button clicked");
     this.setState({
       name: "",
+      glazeBase: "",
       recipeVolume: "",
       recipe: null
     });
@@ -127,19 +133,28 @@ class UnconnectedCalculator extends Component {
               <option value="litres">litres</option>
             </select>
           </div>
+          <div>
+            <input
+              type="text"
+              placeholder="Glaze base"
+              onChange={this.baseHandler}
+              value={this.state.glazeBase}
+            ></input>
+          </div>
           {this.props.materials.map(this.displayMaterialInput)}
           <div>
             <input type="submit" value="Calculate"></input>
           </div>
         </form>
         <button onClick={this.addMaterial}>Add another material</button>
-        <button onClick={this.addRecipe}>Add recipe to recipe</button>
+        <button onClick={this.addRecipe}>Add recipe to calculator</button>
         <button onClick={this.clearHandler}>Clear</button>
         {this.state.recipe ? (
           <Recipe
             name={this.state.name}
             recipeVolume={this.state.recipeVolume}
             recipe={this.state.recipe}
+            glazeBase={this.state.glazeBase}
           />
         ) : null}
       </div>

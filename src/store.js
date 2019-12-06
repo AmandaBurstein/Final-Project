@@ -46,7 +46,7 @@ let reducer = (state, action) => {
   if (action.type === "import-recipes") {
     return {
       ...state,
-      importedRecipes: state.importedRecipes.concat(action.value)
+      importedRecipes: action.value
     };
   }
   if (action.type === "login-success") {

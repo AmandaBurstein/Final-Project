@@ -37,11 +37,11 @@ class UnconnectedSearch extends Component {
             <input
               type="text"
               value={this.state.query}
-              placeholder="Search by colour family..."
+              placeholder="Search by colour..."
               onChange={this.handleSearchQuery}
             />
             <button onClick={this.handleSubmit}>Search</button>
-            <button onClick={this.handleDelete}>Delete</button>
+            <button onClick={this.handleDelete}>Clear</button>
           </div>
           {this.state.searchResults.map(recipe => {
             return <SearchResults recipe={recipe} />;

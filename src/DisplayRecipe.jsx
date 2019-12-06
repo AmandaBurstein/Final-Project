@@ -17,6 +17,7 @@ class UnconnectedRecipe extends Component {
     let data = new FormData();
     data.append("username", this.props.loggedIn.username);
     data.append("name", this.props.name);
+    data.append("glazeBase", this.props.glazeBase);
     data.append("materials", JSON.stringify(this.props.materials));
     data.append("recipeVolume", this.props.recipeVolume);
     data.append("colourTags", colourTags);
@@ -37,6 +38,7 @@ class UnconnectedRecipe extends Component {
         <div>
           Recipe volume: {this.props.recipeVolume} {this.props.volumeValue}
         </div>
+        <div>Glaze base: {this.props.glazeBase}</div>
         {this.props.recipe.map(material => {
           return (
             <div>

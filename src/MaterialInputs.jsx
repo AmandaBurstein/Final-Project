@@ -21,8 +21,8 @@ class UnconnectedMaterialInputs extends Component {
   handleValueChange = event => {
     this.props.dispatch({
       type: "update-material-value",
-      value: event.target.value,
-      index: this.props.index
+      index: this.props.index,
+      value: event.target.value
     });
   };
 

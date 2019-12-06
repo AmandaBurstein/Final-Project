@@ -91,6 +91,7 @@ app.post("/add-recipe", upload.none(), (req, res) => {
   let recipeName = req.body.name;
   let materials = JSON.parse(req.body.materials);
   let colourTags = req.body.colourTags;
+  let glazeBase = req.body.glazeBase;
   let ingredients = materials.map(material => {
     let concentration = material.concentration;
     return {
@@ -104,6 +105,7 @@ app.post("/add-recipe", upload.none(), (req, res) => {
       username: username,
       recipeName: recipeName,
       recipeVolume: "100ml",
+      glazeBase: glazeBase,
       ingredients: ingredients,
       colourTags: colourTags
     })
@@ -161,6 +163,69 @@ app.get("/all-recipes", upload.none(), (req, res) => {
         return;
       }
       res.send(JSON.stringify(recipes));
+    });
+});
+
+app.post("/delete-recipe", upload.none(), (req, res) => {
+  console.log("/delete-recipe endpoint hit");
+  let name = req.body.name;
+  dbo
+    .collection("glaze-recipes")
+    .deleteOne({ recipeName: name })
+    .then(() => res.send(JSON.stringify({ success: true })))
+    .catch(error =>
+      res.send(
+        JSON.stringify({
+          success: false,
+          error
+        })
+      )
+    );
+});
+
+app.post("/add-notes", upload.none(), (req, res) => {
+  console.log("/add-notes endpoint hit");
+  let notes = JSON.parse(req.body.notes);
+  let name = req.body.recipeName;
+  console.log("notes", notes);
+  dbo
+    .collection("glaze-recipes")
+    .findOne({ recipeName: name }, (error, recipe) => {
+      if (error) {
+        console.log("/add-notes error", error);
+        res.send(JSON.stringify({ success: false, error }));
+        return;
+      }
+      //if notes property DOES NOT exist in the found object,
+      //add new property notes and add notes array
+      if (recipe.notes === null) {
+        dbo
+          .collection("glaze-recipes")
+          .updateOne({ recipeName: name }, { $set: { notes: notes } })
+          .then(() => res.send(JSON.stringify({ success: true })))
+          .catch(error =>
+            res.send(
+              JSON.stringify({
+                success: false,
+                error
+              })
+            )
+          );
+      }
+      //if notes property DOES exist for the found object,
+      //push to the notes array
+      dbo
+        .collection("glaze-recipes")
+        .updateOne({ recipeName: name }, { $push: { notes: notes } })
+        .then(() => res.send(JSON.stringify(notes)))
+        .catch(error =>
+          res.send(
+            JSON.stringify({
+              success: false,
+              error
+            })
+          )
+        );
     });
 });
 

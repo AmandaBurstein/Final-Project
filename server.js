@@ -75,9 +75,11 @@ app.post("/calculate", upload.none(), (req, res) => {
   recipeVolume = Number(recipeVolume);
   let amounts = materials.map(material => {
     let concentration = material.concentration;
+    let amount = concentration * 0.01 * recipeVolume;
+    amount.toFixed(2);
     return {
       name: material.name,
-      amount: concentration * 0.01 * recipeVolume,
+      amount: amount,
       materialValue: material.materialValue
     };
   });
@@ -122,7 +124,6 @@ app.post("/add-recipe", upload.none(), (req, res) => {
 
 app.post("/get-recipe", upload.none(), (req, res) => {
   console.log("/get-recipe endpoint hit with", req.body.name);
-  // let username =
   let recipeName = req.body.name;
   let totalConcentration = req.body.concentration * 0.01;
   dbo
@@ -226,6 +227,84 @@ app.post("/add-notes", upload.none(), (req, res) => {
             })
           )
         );
+    });
+});
+
+app.post("/add-photo", upload.single("image"), (req, res) => {
+  console.log("/add-photo endpoint hit");
+  console.log("req.file", req.file);
+  let name = req.body.recipeName;
+  let file = req.file;
+  let frontendPath = "/uploads/" + file.filename;
+  dbo
+    .collection("glaze-recipes")
+    .findOne({ recipeName: name }, (error, recipe) => {
+      if (error) {
+        console.log("/add-photo error --- cant find recipeName", error);
+        res.send(JSON.stringify({ success: false, error }));
+        return;
+      }
+      // if (recipe.frontendPath === null) {
+      //   console.log("no recipe found, create one");
+      //   dbo
+      //     .collection("glaze-recipes")
+      //     .updateOne(
+      //       { recipeName: name },
+      //       { $set: { frontendPath: [frontendPath] } }
+      //     )
+      //     .then(() => res.send(JSON.stringify({ success: true })))
+      //     .catch(error => {
+      //       console.log("failed to create a new FEpath property and populate");
+      //       res.send(
+      //         JSON.stringify({
+      //           success: false,
+      //           error
+      //         })
+      //       );
+      //     });
+      //   return;
+      // }
+      dbo
+        .collection("glaze-recipes")
+        .updateOne(
+          { recipeName: name },
+          { $push: { frontendPath: frontendPath } }
+        )
+        .then(() => {
+          console.log("path has been pushed to the FEpath array");
+          res.send(JSON.stringify({ success: true }));
+        })
+        .catch(error => {
+          console.log("failed to push to the FEpath array");
+          res.send(
+            JSON.stringify({
+              success: false,
+              error
+            })
+          );
+        });
+    });
+});
+
+app.post("/edit-recipe", upload.none(), (req, res) => {
+  console.log("/edit-recipe endpoint hit with", req.body.name);
+  let recipeName = req.body.name;
+  dbo
+    .collection("glaze-recipes")
+    .findOne({ recipeName: recipeName }, (error, recipe) => {
+      if (error) {
+        console.log("/get-recipe error", error);
+        res.send(JSON.stringify({ success: false, error }));
+        return;
+      }
+      if (recipe === null) {
+        res.send(JSON.stringify({ success: false }));
+        return;
+      }
+      if (recipe.recipeName === recipeName) {
+        console.log("recipe", recipe);
+        res.send(JSON.stringify(recipe));
+      }
     });
 });
 

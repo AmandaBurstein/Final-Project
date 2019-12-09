@@ -51,14 +51,7 @@ class UnconnectedEditInputs extends Component {
     return (
       <div>
         <div>
-          <input
-            type="text"
-            value={this.props.elem.recipeName}
-            onChange={this.updateRecipeName}
-            placeholder="Recipe name"
-          ></input>
-        </div>
-        <div>
+          Glaze Base
           <input
             type="text"
             value={this.props.elem.glazeBase}
@@ -67,6 +60,7 @@ class UnconnectedEditInputs extends Component {
           ></input>
         </div>
         <div>
+          Colour families
           <input
             type="text"
             value={this.props.elem.colourTags}
@@ -78,6 +72,7 @@ class UnconnectedEditInputs extends Component {
           return (
             <div>
               <div>
+                Material
                 <input
                   type="text"
                   value={ingredient.name}
@@ -86,6 +81,7 @@ class UnconnectedEditInputs extends Component {
                 ></input>
               </div>
               <div>
+                Concentration
                 <input
                   type="text"
                   value={ingredient.concentration}
@@ -96,29 +92,25 @@ class UnconnectedEditInputs extends Component {
             </div>
           );
         })}
-        {this.props.elem.notes.map(note => {
-          return (
-            <div>
-              <input
-                type="text"
-                value={note}
-                onChange={event => this.updateNotes(event, index)}
-                placeholder="Notes"
-              ></input>
-            </div>
-          );
-        })}
+        {/* {this.props.elem.notes
+          ? this.props.elem.notes.map((note, index) => {
+              return (
+                <div>
+                  <input
+                    type="text"
+                    value={note}
+                    onChange={event => this.updateNotes(event, index)}
+                    placeholder="Notes"
+                  ></input>
+                </div>
+              );
+            })
+          : null} */}
       </div>
     );
   };
 }
 
-let mapStateToProps = state => {
-  return {
-    editRecipe: state.editRecipe
-  };
-};
-
-let EditInputs = connect(mapStateToProps)(UnconnectedEditInputs);
+let EditInputs = connect()(UnconnectedEditInputs);
 
 export default EditInputs;

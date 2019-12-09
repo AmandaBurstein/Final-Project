@@ -47,7 +47,7 @@ class UnconnectedCatalogue extends Component {
     } catch (error) {
       window.alert("Unable to add notes");
     }
-    if (this.state.file !== undefined) {
+    if (this.state.file !== "") {
       let formData = new FormData();
       formData.append("image", this.state.file);
       formData.append("recipeName", recipeName);
@@ -58,6 +58,9 @@ class UnconnectedCatalogue extends Component {
       let body = await reqResponse.text();
       body = JSON.parse(body);
       console.log("photo response body", body);
+      if (body.success === true) {
+        window.alert("Photo successfully added");
+      }
     }
   };
 
@@ -106,6 +109,35 @@ class UnconnectedCatalogue extends Component {
     this.props.dispatch({ type: "edit-recipe", value: editRecipe });
   };
 
+  submitRecipe = async event => {
+    event.preventDefault();
+    console.log(
+      "this.props.editRecipe[0].recipeName",
+      this.props.editRecipe[0].recipeName
+    );
+    let formData = new FormData();
+    formData.append("recipeName", this.props.editRecipe[0].recipeName);
+    formData.append("glazeBase", this.props.editRecipe[0].glazeBase);
+    formData.append(
+      "ingredients",
+      JSON.stringify(this.props.editRecipe[0].ingredients)
+    );
+    formData.append("colourTags", this.props.editRecipe[0].colorTags);
+    let reqResponse = await fetch("/update-recipe", {
+      method: "POST",
+      body: formData
+    });
+    let updatedRecipe = await reqResponse.text();
+    updatedRecipe = JSON.parse(updatedRecipe);
+    console.log("updatedRecipe", updatedRecipe);
+    let responseBody = await fetch("/all-recipes", { method: "GET" });
+    let recipes = await responseBody.text();
+    recipes = JSON.parse(recipes);
+    console.log("recipes", recipes);
+    this.props.dispatch({ type: "import-recipes", value: recipes });
+    this.setState({ edit: false });
+  };
+
   displayEditInput = element => {
     return <EditInputs elem={element} />;
   };
@@ -117,6 +149,7 @@ class UnconnectedCatalogue extends Component {
         <Search />
         <div>
           {this.props.importedRecipes.map(recipe => {
+            console.log("recipe", recipe);
             return (
               <div>
                 <h4>Name: {recipe.recipeName}</h4>
@@ -144,7 +177,13 @@ class UnconnectedCatalogue extends Component {
                       })
                     : null}
                 </div>
-
+                <div>
+                  {recipe.frontendPath
+                    ? recipe.frontendPath.map(path => {
+                        return <img src="path"></img>;
+                      })
+                    : null}
+                </div>
                 <form onSubmit={() => this.submitHandler(recipe.recipeName)}>
                   <input
                     type="text"
@@ -170,6 +209,9 @@ class UnconnectedCatalogue extends Component {
               ? this.props.editRecipe.map(this.displayEditInput)
               : null}
           </div>
+          {this.state.edit ? (
+            <button onClick={this.submitRecipe}>Submit edited recipe</button>
+          ) : null}
         </div>
       </div>
     );

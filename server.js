@@ -308,6 +308,36 @@ app.post("/edit-recipe", upload.none(), (req, res) => {
     });
 });
 
+app.post("/update-recipe", upload.none(), (req, res) => {
+  console.log("/update-recipe endpoint hit");
+  let name = req.body.recipeName;
+  console.log("name", name);
+  let base = req.body.glazeBase;
+  let ing = JSON.parse(req.body.ingredients);
+  let tags = req.body.colourTags;
+  dbo
+    .collection("glaze-recipes")
+    .updateOne(
+      { recipeName: name },
+      {
+        $set: {
+          glazeBase: base,
+          ingredients: ing,
+          colourTags: tags
+        }
+      }
+    )
+    .then(() => res.send(JSON.stringify({ success: true })))
+    .catch(error =>
+      res.send(
+        JSON.stringify({
+          success: false,
+          error
+        })
+      )
+    );
+});
+
 app.all("/*", (req, res, next) => {
   res.sendFile(__dirname + "/build/index.html");
 });

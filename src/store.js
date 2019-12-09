@@ -58,32 +58,34 @@ let reducer = (state, action) => {
   }
   if (action.type === "edit-recipe-name") {
     let newState = R.clone(state);
-    newState.editRecipe.recipeName = action.value;
+    newState.editRecipe[0].recipeName = action.value;
     return newState;
   }
   if (action.type === "edit-glaze-base") {
     let newState = R.clone(state);
-    newState.editRecipe.glazeBase = action.value;
+    newState.editRecipe[0].glazeBase = action.value;
     return newState;
   }
   if (action.type === "edit-colour-tags") {
     let newState = R.clone(state);
-    newState.editRecipe.colourTags = action.value;
+    newState.editRecipe[0].colourTags = action.value;
+
     return newState;
   }
   if (action.type === "edit-material") {
     let newState = R.clone(state);
-    newState.editRecipe.ingredients[action.index].name = action.value;
+    newState.editRecipe[0].ingredients[action.index].name = action.value;
     return newState;
   }
   if (action.type === "edit-concentration") {
     let newState = R.clone(state);
-    newState.editRecipe.ingredients[action.index].concentration = action.value;
+    newState.editRecipe[0].ingredients[action.index].concentration =
+      action.value;
     return newState;
   }
   if (action.type === "edit-notes") {
     let newState = R.clone(state);
-    newState.editRecipe.notes[action.index] = action.value;
+    newState.editRecipe[0].notes[action.index] = action.value;
     return newState;
   }
   return state;

@@ -54,7 +54,7 @@ let reducer = (state, action) => {
     return { ...state, loggedIn: { username: action.value, loggedIn: true } };
   }
   if (action.type === "edit-recipe") {
-    return { ...state, editRecipe: editRecipe.concat(action.value) };
+    return { ...state, editRecipe: [action.value] };
   }
   if (action.type === "edit-recipe-name") {
     let newState = R.clone(state);

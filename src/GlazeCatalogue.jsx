@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Search from "./Search.jsx";
+import EditInputs from "./EditInputs.jsx";
 
 class UnconnectedCatalogue extends Component {
   constructor() {
@@ -106,7 +107,7 @@ class UnconnectedCatalogue extends Component {
   };
 
   displayEditInput = element => {
-    return <EditInputs element={elem} />;
+    return <EditInputs elem={element} />;
   };
 
   render = () => {
@@ -143,11 +144,7 @@ class UnconnectedCatalogue extends Component {
                       })
                     : null}
                 </div>
-                <div>
-                  {this.state.edit
-                    ? this.props.editRecipe.map(this.displayEditInput)
-                    : null}
-                </div>
+
                 <form onSubmit={() => this.submitHandler(recipe.recipeName)}>
                   <input
                     type="text"
@@ -166,6 +163,13 @@ class UnconnectedCatalogue extends Component {
               </div>
             );
           })}
+        </div>
+        <div>
+          <div>
+            {this.state.edit
+              ? this.props.editRecipe.map(this.displayEditInput)
+              : null}
+          </div>
         </div>
       </div>
     );

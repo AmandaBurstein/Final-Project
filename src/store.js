@@ -5,7 +5,7 @@ let initialState = {
   materials: [{ name: "", concentration: "", materialValue: "g" }],
   volumeValue: "ml",
   importedRecipes: [],
-  loggedIn: { username: "", loggedIn: false },
+  loggedIn: false,
   editRecipe: []
 };
 
@@ -51,7 +51,7 @@ let reducer = (state, action) => {
     };
   }
   if (action.type === "login-success") {
-    return { ...state, loggedIn: { username: action.value, loggedIn: true } };
+    return { ...state, loggedIn: true };
   }
   if (action.type === "edit-recipe") {
     return { ...state, editRecipe: [action.value] };
@@ -87,6 +87,9 @@ let reducer = (state, action) => {
     let newState = R.clone(state);
     newState.editRecipe[0].notes[action.index] = action.value;
     return newState;
+  }
+  if (action.type === "logout") {
+    return { ...state, loggedIn: false };
   }
   return state;
 };

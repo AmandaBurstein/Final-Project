@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, withRouter } from "react-router-dom";
 
 class UnconnectedLogin extends Component {
   constructor() {
@@ -34,35 +34,34 @@ class UnconnectedLogin extends Component {
     }
     alert("Login successful");
     this.props.dispatch({
-      type: "login-success",
-      value: this.state.username
+      type: "login-success"
     });
+    console.log("this.props.loggedIn", this.props.loggedIn);
+    this.props.history.push("/calculator");
   };
 
   render = () => {
-    if (this.props.loggedIn.loggedIn === false) {
-      return (
-        <div>
-          <h1>Login </h1>
-          <form onSubmit={this.handleSubmit}>
-            <div>Username</div>
-            <input type="text" onChange={this.handleUsername} />
-            <div></div>
-            <div>Password</div>
-            <input type="password" onChange={this.handlePassword} />
-            <input type="submit" value="Login" />
-          </form>
-          <form>
-            <div>
-              <Link to="/signup">
-                Not a member? Click here to create an account
-              </Link>
-            </div>
-          </form>
-        </div>
-      );
-    }
-    return <Redirect to="/catalogue" />;
+    return (
+      <div>
+        <h1>log in</h1>
+        <form onSubmit={this.handleSubmit}>
+          <input
+            className="signup-login-input"
+            type="text"
+            placeholder=" Username"
+            onChange={this.handleUsername}
+          />
+          <div></div>
+          <input
+            className="signup-login-input"
+            type="password"
+            placeholder=" Password"
+            onChange={this.handlePassword}
+          />
+          <input className="signup-login-button" type="submit" value="SUBMIT" />
+        </form>
+      </div>
+    );
   };
 }
 
@@ -72,4 +71,4 @@ let mapStateToProps = state => {
 
 let Login = connect(mapStateToProps)(UnconnectedLogin);
 
-export default Login;
+export default withRouter(Login);

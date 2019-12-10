@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Recipe from "./DisplayRecipe.jsx";
 import MaterialInputs from "./MaterialInputs.jsx";
-import Catalogue from "./GlazeCatalogue.jsx";
+import { Link, Redirect } from "react-router-dom";
 
 class UnconnectedCalculator extends Component {
   constructor() {
@@ -107,63 +107,70 @@ class UnconnectedCalculator extends Component {
   };
 
   render = () => {
-    return (
-      <div>
-        <form onSubmit={this.onSubmit}>
-          <div>
-            <input
-              type="text"
-              placeholder="Recipe name"
-              onChange={this.nameChangeHandler}
-              value={this.state.name}
-            ></input>
-          </div>
-          <div>
-            <input
-              type="text"
-              placeholder="Recipe volume"
-              onChange={this.recipeVolumeChangeHandler}
-              value={this.state.recipeVolume}
-            ></input>
-            <select
-              value={this.props.volumeValue}
-              onChange={this.handleVolumeChange}
-            >
-              <option value="ml">ml</option>
-              <option value="litres">litres</option>
-            </select>
-          </div>
-          <div>
-            <input
-              type="text"
-              placeholder="Glaze base"
-              onChange={this.baseHandler}
-              value={this.state.glazeBase}
-            ></input>
-          </div>
-          {this.props.materials.map(this.displayMaterialInput)}
-          <div>
-            <input type="submit" value="Calculate"></input>
-          </div>
-        </form>
-        <button onClick={this.addMaterial}>Add another material</button>
-        <button onClick={this.addRecipe}>Add recipe to calculator</button>
-        <button onClick={this.clearHandler}>Clear</button>
-        {this.state.recipe ? (
-          <Recipe
-            name={this.state.name}
-            recipeVolume={this.state.recipeVolume}
-            recipe={this.state.recipe}
-            glazeBase={this.state.glazeBase}
-          />
-        ) : null}
-      </div>
-    );
+    if (this.props.loggedIn) {
+      return (
+        <div>
+          <form onSubmit={this.onSubmit}>
+            <div>
+              <input
+                type="text"
+                placeholder="Recipe name"
+                onChange={this.nameChangeHandler}
+                value={this.state.name}
+              ></input>
+            </div>
+            <div>
+              <input
+                type="text"
+                placeholder="Recipe volume"
+                onChange={this.recipeVolumeChangeHandler}
+                value={this.state.recipeVolume}
+              ></input>
+              <select
+                value={this.props.volumeValue}
+                onChange={this.handleVolumeChange}
+              >
+                <option value="ml">ml</option>
+                <option value="litres">litres</option>
+              </select>
+            </div>
+            <div>
+              <input
+                type="text"
+                placeholder="Glaze base"
+                onChange={this.baseHandler}
+                value={this.state.glazeBase}
+              ></input>
+            </div>
+            {this.props.materials.map(this.displayMaterialInput)}
+            <div>
+              <input type="submit" value="Calculate"></input>
+            </div>
+          </form>
+          <button onClick={this.addMaterial}>Add another material</button>
+          <button onClick={this.addRecipe}>Add recipe to calculator</button>
+          <button onClick={this.clearHandler}>Clear</button>
+          {this.state.recipe ? (
+            <Recipe
+              name={this.state.name}
+              recipeVolume={this.state.recipeVolume}
+              recipe={this.state.recipe}
+              glazeBase={this.state.glazeBase}
+            />
+          ) : null}
+        </div>
+      );
+    }
+    return <Redirect to="/" />;
   };
 }
 
 let mapStateToProps = state => {
-  return { materials: state.materials, volumeValue: state.volumeValue };
+  return {
+    materials: state.materials,
+    volumeValue: state.volumeValue,
+    loggedIn: state.loggedIn
+  };
 };
 let Calculator = connect(mapStateToProps)(UnconnectedCalculator);
 

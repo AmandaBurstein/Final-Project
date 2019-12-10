@@ -41,36 +41,29 @@ class UnconnectedSignup extends Component {
   };
 
   render = () => {
-    if (!this.state.signedUp) {
-      return (
-        <div>
-          <h1>Signup</h1>
-          <form onSubmit={this.submitHandler}>
-            Username
-            <input
-              type="text"
-              value={this.state.username}
-              onChange={this.usernameHandler}
-            ></input>
-            Password
-            <input
-              type="password"
-              value={this.state.password}
-              onChange={this.passwordHandler}
-            ></input>
-            <input type="submit" value="Sign up"></input>
-          </form>
-          <form>
-            <div>
-              <Link to="/login">
-                Already have an account? Click here to log in
-              </Link>
-            </div>
-          </form>
-        </div>
-      );
-    }
-    return <Redirect to="/login" />;
+    return (
+      <div>
+        <h1>sign up</h1>
+        <form onSubmit={this.submitHandler}>
+          <input
+            className="signup-login-input"
+            type="text"
+            value={this.state.username}
+            placeholder=" Username"
+            onChange={this.usernameHandler}
+          ></input>
+          <div></div>
+          <input
+            className="signup-login-input"
+            type="password"
+            value={this.state.password}
+            placeholder=" Password"
+            onChange={this.passwordHandler}
+          ></input>
+          <input type="submit" value="SUBMIT"></input>
+        </form>
+      </div>
+    );
   };
 }
 

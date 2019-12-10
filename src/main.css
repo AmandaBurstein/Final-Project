@@ -1,23 +1,81 @@
 body {
-    background-color: #bbb;
-    margin: 0;
+  background-color: white;
+  margin: 0;
+
+  font-family: "Lato", sans-serif;
 }
 
-.overlay {
-    z-index:50;
-    position: fixed;
-    left:0;
-    right:0;
-    top:0;
-    bottom:0;
-    background-color:rgba(0,0,0,0.5);
+.homepage-container {
+  background: url(/gloop.jpg);
+  height: 100vh;
+  box-shadow: inset 0 0 0 1000px rgba(249, 248, 244, 0.42);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.popup {
-    z-index:100;
-    position: fixed;
-    top:200px;
-    left:200px;
-    right:200px;
-    background-color:white
+.header-logo {
+  font-family: "Permanent Marker", cursive;
+  font-size: 50px;
+  display: flex;
+  justify-content: center;
+  background-color: white;
+  padding: 5px;
 }
+
+.signup-login-container {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.signup-login-form {
+  font-family: "Roboto", sans-serif;
+  font-style: thin;
+  font-size: 10px;
+  font-style: thin;
+  letter-spacing: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  height: 100%;
+  background: white;
+  border-radius: 5px;
+  padding: 20px;
+  min-width: 200px;
+}
+
+.signup-login-input {
+  border: none;
+  border-radius: 2px;
+  height: 20px;
+  margin-top: 5px;
+  width: 100%;
+  padding: 2px;
+}
+
+/* .signup-login-button {
+  font-family: "Roboto", sans-serif;
+} */
+
+input[type="submit"] {
+  margin-top: 8px;
+  background-color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+input[type="text"] {
+  background-color: #fbe6e6;
+}
+
+input[type="password"] {
+  background-color: #fbe6e6;
+}
+/* 
+
+font-family: 'Lato', sans-serif; */
+/* font-family: "Armata", sans-serif; */

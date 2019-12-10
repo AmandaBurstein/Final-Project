@@ -230,6 +230,23 @@ app.post("/add-notes", upload.none(), (req, res) => {
     });
 });
 
+app.post("/delete-note", upload.none(), (req, res) => {
+  console.log("/delete-note endpoint hit");
+  let name = req.body.name;
+  dbo
+    .collection("glaze-recipes")
+    .updateOne({ recipeName: name }, { $pop: { notes: 1 } })
+    .then(() => res.send(JSON.stringify({ success: true })))
+    .catch(error =>
+      res.send(
+        JSON.stringify({
+          success: false,
+          error
+        })
+      )
+    );
+});
+
 app.post("/add-photo", upload.single("image"), (req, res) => {
   console.log("/add-photo endpoint hit");
   console.log("req.file", req.file);
@@ -284,6 +301,23 @@ app.post("/add-photo", upload.single("image"), (req, res) => {
           );
         });
     });
+});
+
+app.post("/delete-photo", upload.none(), (req, res) => {
+  console.log("/delete-photo endpoint hit");
+  let name = req.body.name;
+  dbo
+    .collection("glaze-recipes")
+    .updateOne({ recipeName: name }, { $pop: { frontendPath: 1 } })
+    .then(() => res.send(JSON.stringify({ success: true })))
+    .catch(error =>
+      res.send(
+        JSON.stringify({
+          success: false,
+          error
+        })
+      )
+    );
 });
 
 app.post("/edit-recipe", upload.none(), (req, res) => {

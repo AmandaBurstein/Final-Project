@@ -61,6 +61,10 @@ class UnconnectedCatalogue extends Component {
       if (body.success === true) {
         window.alert("Photo successfully added");
       }
+      let response = await fetch("/all-recipes", { method: "GET" });
+      let resBody = await response.text();
+      resBody = JSON.parse(resBody);
+      this.props.dispatch({ type: "import-recipes", value: resBody });
     }
   };
 
@@ -138,6 +142,54 @@ class UnconnectedCatalogue extends Component {
     this.setState({ edit: false });
   };
 
+  deleteNote = async recipeName => {
+    event.preventDefault();
+    console.log("Delete note clicked");
+    let verifyDelete = confirm("Are you certain you want to delete this note?");
+    if (!verifyDelete) {
+      return;
+    }
+    let data = new FormData();
+    data.append("name", recipeName);
+    let response = await fetch("/delete-note", { method: "POST", body: data });
+    let body = await response.text();
+    body = JSON.parse(body);
+    if (body.success) {
+      window.alert("Note deleted");
+    }
+    this.setState({ notes: [] });
+    let responseBody = await fetch("/all-recipes", { method: "GET" });
+    let recipes = await responseBody.text();
+    recipes = JSON.parse(recipes);
+    console.log("recipes", recipes);
+    this.props.dispatch({ type: "import-recipes", value: recipes });
+  };
+
+  deletePhoto = async recipeName => {
+    event.preventDefault();
+    console.log("delete photo clicked");
+    let verifyDelete = confirm(
+      "Are you certain you want to delete this image?"
+    );
+    if (!verifyDelete) {
+      return;
+    }
+    let data = new FormData();
+    data.append("name", recipeName);
+    let response = await fetch("/delete-photo", { method: "POST", body: data });
+    let body = await response.text();
+    body = JSON.parse(body);
+    if (body.success) {
+      window.alert("Photo deleted");
+    }
+    this.setState({ file: "" });
+    let responseBody = await fetch("/all-recipes", { method: "GET" });
+    let recipes = await responseBody.text();
+    recipes = JSON.parse(recipes);
+    console.log("recipes", recipes);
+    this.props.dispatch({ type: "import-recipes", value: recipes });
+  };
+
   displayEditInput = element => {
     return <EditInputs elem={element} />;
   };
@@ -180,7 +232,7 @@ class UnconnectedCatalogue extends Component {
                 <div>
                   {recipe.frontendPath
                     ? recipe.frontendPath.map(path => {
-                        return <img src="path"></img>;
+                        return <img src={path}></img>;
                       })
                     : null}
                 </div>
@@ -189,10 +241,17 @@ class UnconnectedCatalogue extends Component {
                     type="text"
                     placeholder="Add notes..."
                     onChange={this.updateNotes}
+                    value={this.state.notes}
                   />
                   <input type="file" onChange={this.photoHandler} />
                   <input type="submit" value="Submit" />
                 </form>
+                <button onClick={() => this.deleteNote(recipe.recipeName)}>
+                  Delete note
+                </button>
+                <button onClick={() => this.deletePhoto(recipe.recipeName)}>
+                  Delete photo
+                </button>
                 <button onClick={() => this.editHandler(recipe.recipeName)}>
                   Edit recipe
                 </button>

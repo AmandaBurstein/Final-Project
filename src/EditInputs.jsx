@@ -92,20 +92,6 @@ class UnconnectedEditInputs extends Component {
             </div>
           );
         })}
-        {/* {this.props.elem.notes
-          ? this.props.elem.notes.map((note, index) => {
-              return (
-                <div>
-                  <input
-                    type="text"
-                    value={note}
-                    onChange={event => this.updateNotes(event, index)}
-                    placeholder="Notes"
-                  ></input>
-                </div>
-              );
-            })
-          : null} */}
       </div>
     );
   };

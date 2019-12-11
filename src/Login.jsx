@@ -32,7 +32,6 @@ class UnconnectedLogin extends Component {
       alert("Login failed, please try again");
       return;
     }
-    alert("Login successful");
     this.props.dispatch({
       type: "login-success"
     });
@@ -43,7 +42,7 @@ class UnconnectedLogin extends Component {
   render = () => {
     return (
       <div>
-        <h1>log in</h1>
+        <h1>login</h1>
         <form onSubmit={this.handleSubmit}>
           <input
             className="signup-login-input"

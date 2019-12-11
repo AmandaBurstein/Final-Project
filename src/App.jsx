@@ -20,14 +20,19 @@ class UnconnectedApp extends Component {
             render={() => (
               <div>
                 <Navbar />
-                <Calculator />
-                <Catalogue />
+                <div className="app-container">
+                  <div>
+                    <Calculator />
+                  </div>
+                  <div>
+                    <Catalogue />
+                  </div>
+                </div>
               </div>
             )}
           />
           <Route exact={true} path="/" component={Homepage} />
           <Route exact={true} path="/catalogue" component={GlazeCatalogue} />
-          <Route exact={true} path="/calculator" component={Calculator} />
           <Route exact={true} path="/signup" component={Signup} />
           <Route exact={true} path="/login" component={Login} />
         </BrowserRouter>

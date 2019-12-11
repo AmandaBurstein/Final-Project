@@ -31,17 +31,22 @@ class UnconnectedSearch extends Component {
 
   render = () => {
     return (
-      <div>
+      <div className="search-container">
         <div>
           <div>
             <input
+              className="search-form-input"
               type="text"
               value={this.state.query}
               placeholder="Search by colour..."
               onChange={this.handleSearchQuery}
             />
-            <button onClick={this.handleSubmit}>Search</button>
-            <button onClick={this.handleDelete}>Clear</button>
+            <button className="button" onClick={this.handleSubmit}>
+              SEARCH
+            </button>
+            <button className="button" onClick={this.handleDelete}>
+              CLEAR
+            </button>
           </div>
           {this.state.searchResults.map(recipe => {
             return <SearchResults recipe={recipe} />;

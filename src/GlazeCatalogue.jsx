@@ -154,9 +154,6 @@ class UnconnectedCatalogue extends Component {
     let response = await fetch("/delete-note", { method: "POST", body: data });
     let body = await response.text();
     body = JSON.parse(body);
-    if (body.success) {
-      window.alert("Note deleted");
-    }
     this.setState({ notes: [] });
     let responseBody = await fetch("/all-recipes", { method: "GET" });
     let recipes = await responseBody.text();
@@ -179,9 +176,6 @@ class UnconnectedCatalogue extends Component {
     let response = await fetch("/delete-photo", { method: "POST", body: data });
     let body = await response.text();
     body = JSON.parse(body);
-    if (body.success) {
-      window.alert("Photo deleted");
-    }
     this.setState({ file: "" });
     let responseBody = await fetch("/all-recipes", { method: "GET" });
     let recipes = await responseBody.text();
@@ -196,81 +190,113 @@ class UnconnectedCatalogue extends Component {
 
   render = () => {
     return (
-      <div>
-        <h3>Catalogue</h3>
-        <Search />
-        <div>
-          {this.props.importedRecipes.map(recipe => {
-            console.log("recipe", recipe);
-            return (
-              <div>
-                <h4>Name: {recipe.recipeName}</h4>
-                <div>Glaze base: {recipe.glazeBase}</div>
-                <div>
-                  Materials:
-                  {recipe.ingredients.map(ingredient => {
-                    return (
-                      <div>
-                        <div>
-                          {ingredient.name} {ingredient.concentration}%
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-                <div>
-                  {recipe.notes
-                    ? recipe.notes.map(note => {
-                        return (
-                          <ul>
-                            <li>{note}</li>
-                          </ul>
-                        );
-                      })
-                    : null}
-                </div>
-                <div>
-                  {recipe.frontendPath
-                    ? recipe.frontendPath.map(path => {
-                        return <img src={path}></img>;
-                      })
-                    : null}
-                </div>
-                <form onSubmit={() => this.submitHandler(recipe.recipeName)}>
-                  <input
-                    type="text"
-                    placeholder="Add notes..."
-                    onChange={this.updateNotes}
-                    value={this.state.notes}
-                  />
-                  <input type="file" onChange={this.photoHandler} />
-                  <input type="submit" value="Submit" />
-                </form>
-                <button onClick={() => this.deleteNote(recipe.recipeName)}>
-                  Delete note
-                </button>
-                <button onClick={() => this.deletePhoto(recipe.recipeName)}>
-                  Delete photo
-                </button>
-                <button onClick={() => this.editHandler(recipe.recipeName)}>
-                  Edit recipe
-                </button>
-                <button onClick={() => this.deleteHandler(recipe.recipeName)}>
-                  Delete recipe
-                </button>
-              </div>
-            );
-          })}
-        </div>
-        <div>
+      <div className="catalogue-container">
+        <div className="catalogue-content">
+          <div className="catalogue-header">RECIPE CATALOGUE</div>
+          <Search />
           <div>
-            {this.state.edit
-              ? this.props.editRecipe.map(this.displayEditInput)
-              : null}
+            {this.props.importedRecipes.map(recipe => {
+              console.log("recipe", recipe);
+              return (
+                <div className="recipe-container">
+                  <div className="catalogue-recipe-line">
+                    <div className="catalogue-recipe-titles">NAME </div>
+                    <div className="catalogue-recipe-info">
+                      {recipe.recipeName}
+                    </div>
+                  </div>
+                  <div className="catalogue-recipe-line">
+                    <div className="catalogue-recipe-titles">GLAZE BASE </div>
+                    <div className="catalogue-recipe-info">
+                      {recipe.glazeBase}
+                    </div>
+                  </div>
+                  <div className="catalogue-recipe-line">
+                    <div className="catalogue-recipe-titles">MATERIALS</div>
+                    <div className="catalogue-recipe-info">
+                      {recipe.ingredients.map(ingredient => {
+                        return (
+                          <div>
+                            <div>
+                              {ingredient.name} {ingredient.concentration}%
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                  <div>
+                    <div className="catalogue-recipe-titles">NOTES</div>
+                    {recipe.notes
+                      ? recipe.notes.map(note => {
+                          return (
+                            <ul className="list-items">
+                              <li>{note}</li>
+                            </ul>
+                          );
+                        })
+                      : null}
+                  </div>
+                  <div>
+                    {recipe.frontendPath
+                      ? recipe.frontendPath.map(path => {
+                          return <img src={path}></img>;
+                        })
+                      : null}
+                  </div>
+                  <form onSubmit={() => this.submitHandler(recipe.recipeName)}>
+                    <input
+                      className="form-input"
+                      type="text"
+                      placeholder="Add notes..."
+                      onChange={this.updateNotes}
+                      value={this.state.notes}
+                    />
+                    <input
+                      className="form-input"
+                      type="file"
+                      onChange={this.photoHandler}
+                    />
+                    <input className="button" type="submit" value="SUBMIT" />
+                  </form>
+                  <button
+                    className="button"
+                    onClick={() => this.deleteNote(recipe.recipeName)}
+                  >
+                    DELETE NOTE
+                  </button>
+                  <button
+                    className="button"
+                    onClick={() => this.deletePhoto(recipe.recipeName)}
+                  >
+                    DELETE PHOTO
+                  </button>
+                  <button
+                    className="button"
+                    onClick={() => this.editHandler(recipe.recipeName)}
+                  >
+                    EDIT RECIPE
+                  </button>
+                  <button
+                    className="button"
+                    onClick={() => this.deleteHandler(recipe.recipeName)}
+                  >
+                    DELETE RECIPE
+                  </button>
+                </div>
+              );
+            })}
           </div>
-          {this.state.edit ? (
-            <button onClick={this.submitRecipe}>Submit edited recipe</button>
-          ) : null}
+          <div>
+            <div>
+              {this.state.edit
+                ? this.props.editRecipe.map(this.displayEditInput)
+                : null}
+            </div>
+            {this.state.edit ? (
+              <button onClick={this.submitRecipe}>SUBMIT EDITED RECIPE</button>
+            ) : null}
+          </div>
         </div>
       </div>
     );

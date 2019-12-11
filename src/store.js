@@ -5,7 +5,7 @@ let initialState = {
   materials: [{ name: "", concentration: "", materialValue: "g" }],
   volumeValue: "ml",
   importedRecipes: [],
-  loggedIn: false,
+  loggedIn: true,
   editRecipe: []
 };
 

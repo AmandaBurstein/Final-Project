@@ -34,16 +34,12 @@ class UnconnectedSignup extends Component {
     if (body.success === false) {
       window.alert("Username already exists, please try again");
     }
-    if (body.success === true) {
-      this.setState({ signedUp: true });
-      window.alert("Signup successful");
-    }
   };
 
   render = () => {
     return (
       <div>
-        <h1>sign up</h1>
+        <h1>signup</h1>
         <form onSubmit={this.submitHandler}>
           <input
             className="signup-login-input"

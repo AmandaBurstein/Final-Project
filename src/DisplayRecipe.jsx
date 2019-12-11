@@ -33,20 +33,33 @@ class UnconnectedRecipe extends Component {
 
   render = () => {
     return (
-      <div>
-        <div>Recipe name: {this.props.name}</div>
+      <div className="recipe-container">
         <div>
-          Recipe volume: {this.props.recipeVolume} {this.props.volumeValue}
+          <div className="catalogue-recipe-titles">NAME</div>
+          <div className="catalogue-recipe-info">{this.props.name}</div>
         </div>
-        <div>Glaze base: {this.props.glazeBase}</div>
+        <div>
+          <div>
+            <div className="catalogue-recipe-titles">VOLUME</div>
+            <div className="catalogue-recipe-info">
+              {this.props.recipeVolume} {this.props.volumeValue}
+            </div>
+          </div>
+        </div>
+        <div>
+          <div className="catalogue-recipe-titles">GLAZE BASE</div>
+          <div>{this.props.glazeBase}</div>
+        </div>
         {this.props.recipe.map(material => {
           return (
-            <div>
+            <div className="catalogue-recipe-info">
               {material.name} {material.amount} {material.materialValue}
             </div>
           );
         })}
-        <button onClick={this.addRecipeHandler}>Add Recipe to Catalogue</button>
+        <button className="button" onClick={this.addRecipeHandler}>
+          ADD RECIPE TO CATALOGUE
+        </button>
       </div>
     );
   };

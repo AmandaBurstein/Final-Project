@@ -11,7 +11,7 @@ class UnconnectedCalculator extends Component {
       name: "",
       recipeVolume: "",
       glazeBase: "",
-      recipe: null
+      recipe: []
     };
   }
 
@@ -36,8 +36,8 @@ class UnconnectedCalculator extends Component {
   };
 
   onSubmit = async () => {
-    console.log("calculator submit clicked");
     event.preventDefault();
+    console.log("calculator submit clicked");
     let volume = "";
     if (this.props.volumeValue === "litres") {
       volume = this.state.recipeVolume * 1000;
@@ -60,9 +60,10 @@ class UnconnectedCalculator extends Component {
       name: "",
       glazeBase: "",
       recipeVolume: "",
-      recipe: null
+      recipe: []
     });
     this.props.dispatch({ type: "clear-materials" });
+    console.log("this.state.recipe", this.state.recipe);
   };
 
   addMaterial = () => {
@@ -109,55 +110,70 @@ class UnconnectedCalculator extends Component {
   render = () => {
     if (this.props.loggedIn) {
       return (
-        <div>
-          <form onSubmit={this.onSubmit}>
-            <div>
-              <input
-                type="text"
-                placeholder="Recipe name"
-                onChange={this.nameChangeHandler}
-                value={this.state.name}
-              ></input>
-            </div>
-            <div>
-              <input
-                type="text"
-                placeholder="Recipe volume"
-                onChange={this.recipeVolumeChangeHandler}
-                value={this.state.recipeVolume}
-              ></input>
-              <select
-                value={this.props.volumeValue}
-                onChange={this.handleVolumeChange}
-              >
-                <option value="ml">ml</option>
-                <option value="litres">litres</option>
-              </select>
-            </div>
-            <div>
-              <input
-                type="text"
-                placeholder="Glaze base"
-                onChange={this.baseHandler}
-                value={this.state.glazeBase}
-              ></input>
-            </div>
-            {this.props.materials.map(this.displayMaterialInput)}
-            <div>
-              <input type="submit" value="Calculate"></input>
-            </div>
-          </form>
-          <button onClick={this.addMaterial}>Add another material</button>
-          <button onClick={this.addRecipe}>Add recipe to calculator</button>
-          <button onClick={this.clearHandler}>Clear</button>
-          {this.state.recipe ? (
-            <Recipe
-              name={this.state.name}
-              recipeVolume={this.state.recipeVolume}
-              recipe={this.state.recipe}
-              glazeBase={this.state.glazeBase}
-            />
-          ) : null}
+        <div className="calculator-container">
+          <div className="calculator-content">
+            <div className="calculator-header">GLAZE CALCULATOR</div>
+            <form onSubmit={this.onSubmit}>
+              <div>
+                <input
+                  className="form-input"
+                  type="text"
+                  placeholder="Recipe name"
+                  onChange={this.nameChangeHandler}
+                  value={this.state.name}
+                ></input>
+              </div>
+              <div>
+                <input
+                  className="form-input"
+                  type="text"
+                  placeholder="Recipe volume"
+                  onChange={this.recipeVolumeChangeHandler}
+                  value={this.state.recipeVolume}
+                ></input>
+                <select
+                  className="select-menu"
+                  value={this.props.volumeValue}
+                  onChange={this.handleVolumeChange}
+                >
+                  <option value="ml">ml</option>
+                  <option value="litres">litres</option>
+                </select>
+              </div>
+              <div>
+                <input
+                  className="form-input"
+                  type="text"
+                  placeholder="Glaze base"
+                  onChange={this.baseHandler}
+                  value={this.state.glazeBase}
+                ></input>
+              </div>
+              {this.props.materials.map(this.displayMaterialInput)}
+              <div className="calculate-clear">
+                <div>
+                  <input type="submit" value="CALCULATE"></input>
+                </div>
+                <button className="button" onClick={this.clearHandler}>
+                  CLEAR
+                </button>
+              </div>
+            </form>
+            <button className="button" onClick={this.addMaterial}>
+              ADD MATERIALS
+            </button>
+            <button className="button" onClick={this.addRecipe}>
+              ADD RECIPE TO CALCULATOR
+            </button>
+            {this.state.recipe.length > 0 ? (
+              <Recipe
+                name={this.state.name}
+                recipeVolume={this.state.recipeVolume}
+                recipe={this.state.recipe}
+                glazeBase={this.state.glazeBase}
+              />
+            ) : null}
+          </div>
         </div>
       );
     }

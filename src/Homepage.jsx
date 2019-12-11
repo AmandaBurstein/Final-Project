@@ -6,7 +6,7 @@ class Homepage extends Component {
   render = () => {
     return (
       <div className="homepage-container">
-        <div className="header-logo">Okclay</div>
+        <div className="header-logo">Oklay</div>
         <div className="signup-login-container">
           <div className="signup-login-form">
             <div>

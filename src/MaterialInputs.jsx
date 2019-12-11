@@ -31,12 +31,14 @@ class UnconnectedMaterialInputs extends Component {
       <div>
         <div>
           <input
+            className="form-input"
             type="text"
             value={this.props.elem.name}
             onChange={this.updateMaterialInput}
-            placeholder="Material"
+            placeholder=" Material"
           ></input>
           <select
+            className="select-menu"
             value={this.props.elem.materialValue}
             onChange={this.handleValueChange}
           >
@@ -46,12 +48,14 @@ class UnconnectedMaterialInputs extends Component {
         </div>
         <div>
           <input
+            className="form-input"
             type="text"
             value={this.props.elem.concentration}
             onChange={this.updateConcentrationInput}
-            placeholder="Concentration"
+            placeholder=" Concentration"
           ></input>
-          <select>
+          <select className="select-menu">
+            className="select-menu"
             <option value="percent">%</option>
           </select>
         </div>

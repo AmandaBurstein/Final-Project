@@ -56,7 +56,7 @@ class UnconnectedSignup extends Component {
             placeholder=" Password"
             onChange={this.passwordHandler}
           ></input>
-          <input type="submit" value="SUBMIT"></input>
+          <input className="button" type="submit" value="SUBMIT"></input>
         </form>
       </div>
     );

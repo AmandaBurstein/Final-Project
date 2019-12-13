@@ -57,7 +57,7 @@ class UnconnectedLogin extends Component {
             placeholder=" Password"
             onChange={this.handlePassword}
           />
-          <input className="signup-login-button" type="submit" value="SUBMIT" />
+          <input className="button" type="submit" value="SUBMIT" />
         </form>
       </div>
     );

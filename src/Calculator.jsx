@@ -112,7 +112,7 @@ class UnconnectedCalculator extends Component {
       return (
         <div className="calculator-container">
           <div className="calculator-content">
-            <div className="calculator-header">GLAZE CALCULATOR</div>
+            <div className="calculator-header">RECIPE CALCULATOR</div>
             <form onSubmit={this.onSubmit}>
               <div>
                 <input
@@ -152,9 +152,16 @@ class UnconnectedCalculator extends Component {
               {this.props.materials.map(this.displayMaterialInput)}
               <div className="calculate-clear">
                 <div>
-                  <input type="submit" value="CALCULATE"></input>
+                  <input
+                    className="button"
+                    type="submit"
+                    value="CALCULATE"
+                  ></input>
                 </div>
-                <button className="button" onClick={this.clearHandler}>
+                <button
+                  className="button delete-button"
+                  onClick={this.clearHandler}
+                >
                   CLEAR
                 </button>
               </div>

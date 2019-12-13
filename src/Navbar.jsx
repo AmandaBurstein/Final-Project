@@ -15,7 +15,7 @@ class UnconnectedNavbar extends Component {
       <div className="navbar-container">
         <div className="navbar-logo">
           <Link className="navbar-logo" to="/">
-            Oklay
+            GLAZED
           </Link>
         </div>
         <div className="navbar-logout-container">

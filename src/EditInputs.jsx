@@ -51,18 +51,20 @@ class UnconnectedEditInputs extends Component {
     return (
       <div>
         <div>
-          Glaze Base
+          <div className="edit-recipe-titles"> GLAZE BASE</div>
           <input
             type="text"
+            className="form-input"
             value={this.props.elem.glazeBase}
             onChange={this.updateGlazeBase}
             placeholder="Glaze base"
           ></input>
         </div>
         <div>
-          Colour families
+          <div className="edit-recipe-titles">COLOUR FAMILIES</div>
           <input
             type="text"
+            className="form-input"
             value={this.props.elem.colourTags}
             onChange={this.updateColourTags}
             placeholder="Colour families"
@@ -71,23 +73,32 @@ class UnconnectedEditInputs extends Component {
         {this.props.elem.ingredients.map((ingredient, index) => {
           return (
             <div>
-              <div>
-                Material
-                <input
-                  type="text"
-                  value={ingredient.name}
-                  onChange={event => this.updateMaterial(event, index)}
-                  placeholder="Material"
-                ></input>
-              </div>
-              <div>
-                Concentration
-                <input
-                  type="text"
-                  value={ingredient.concentration}
-                  onChange={event => this.updateConcentration(event, index)}
-                  placeholder="Concentration"
-                ></input>
+              <div className="edit-mat-con">
+                <div>
+                  <div className="edit-recipe-titles">MATERIAL</div>
+                  <div>
+                    <input
+                      type="text"
+                      className="form-input"
+                      value={ingredient.name}
+                      onChange={event => this.updateMaterial(event, index)}
+                      placeholder="Material"
+                    ></input>{" "}
+                  </div>
+                </div>
+                <div>
+                  <div className="edit-recipe-titles">CONCENTRATION %</div>
+                  <div>
+                    {" "}
+                    <input
+                      type="text"
+                      className="form-input"
+                      value={ingredient.concentration}
+                      onChange={event => this.updateConcentration(event, index)}
+                      placeholder="Concentration"
+                    ></input>
+                  </div>
+                </div>
               </div>
             </div>
           );

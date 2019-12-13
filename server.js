@@ -76,10 +76,9 @@ app.post("/calculate", upload.none(), (req, res) => {
   let amounts = materials.map(material => {
     let concentration = material.concentration;
     let amount = concentration * 0.01 * recipeVolume;
-    amount.toFixed(2);
     return {
       name: material.name,
-      amount: amount,
+      amount: amount.toFixed(2),
       materialValue: material.materialValue
     };
   });
@@ -140,7 +139,7 @@ app.post("/get-recipe", upload.none(), (req, res) => {
       }
       if (recipe.recipeName === recipeName) {
         recipe.ingredients = recipe.ingredients.map(ingredient => {
-          let ingredientInt = parseInt(ingredient.concentration);
+          let ingredientInt = parseInt(ingredient.concentration).toFixed(2);
           return {
             name: ingredient.name,
             concentration: ingredientInt * totalConcentration

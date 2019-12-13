@@ -55,7 +55,6 @@ class UnconnectedMaterialInputs extends Component {
             placeholder=" Concentration"
           ></input>
           <select className="select-menu">
-            className="select-menu"
             <option value="percent">%</option>
           </select>
         </div>

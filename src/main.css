@@ -1,8 +1,6 @@
 body {
   background-color: white;
   margin: 0;
-
-  font-family: "Lato", sans-serif;
 }
 
 .homepage-container {
@@ -14,7 +12,7 @@ body {
 }
 
 .header-logo {
-  font-family: "Permanent Marker", cursive;
+  font-family: "Covered By Your Grace", cursive;
   font-size: 50px;
   display: flex;
   justify-content: center;
@@ -54,6 +52,7 @@ body {
   width: 100%;
   padding: 2px;
   background-color: #fbe6e6;
+  outline: none;
 }
 
 input[type="submit"] {
@@ -67,6 +66,7 @@ input[type="submit"] {
 
 input[type="password"] {
   background-color: #fbe6e6;
+  outline: none;
 }
 
 .button {
@@ -76,6 +76,70 @@ input[type="password"] {
   padding: 5px;
   cursor: pointer;
   letter-spacing: 1px;
+  outline: none;
+}
+
+.button:hover {
+  margin-top: 8px;
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+.edit-button {
+  position: absolute;
+  top: 5px;
+  right: 20px;
+  outline: none;
+}
+
+.submit-edit-button {
+  margin-top: 20px;
+  background-color: white;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  outline: none;
+}
+
+.submit-edit-button:hover {
+  margin-top: 20px;
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+.file-button {
+  background-color: white;
+  color: black;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  outline: none;
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+.file-button:hover {
+  background-color: black;
+  color: white;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+.add-notes-photo {
+  display: flex;
+  align-items: center;
 }
 
 .navbar-container {
@@ -85,15 +149,16 @@ input[type="password"] {
   box-shadow: inset 0 0 0 1000px rgba(249, 248, 244, 0.69);
   text-decoration: none;
   justify-content: center;
-  height: 80px;
+  height: 100px;
   margin-bottom: 40px;
 }
 
 .navbar-logo {
   display: flex;
   position: absolute;
-  left: 5px;
-  font-family: "Permanent Marker", cursive;
+  top: 15px;
+  left: 10px;
+  font-family: "Covered By Your Grace", cursive;
   font-size: 30px;
   text-decoration: none;
   color: black;
@@ -105,12 +170,28 @@ input[type="password"] {
   bottom: 0px;
   display: flex;
   font-family: "Roboto", sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   letter-spacing: 2px;
   text-decoration: none;
   border: none;
   color: black;
-  background-color: white;
+  padding: 5px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.navbar-logout:hover {
+  color: white;
+  background-color: black;
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  display: flex;
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  border: none;
   padding: 5px;
   cursor: pointer;
 }
@@ -123,6 +204,7 @@ input[type="password"] {
   background: white;
   width: 50vw;
   height: 100vh;
+  margin-left: 80px;
 }
 
 .calculator-header {
@@ -144,6 +226,7 @@ input[type="password"] {
   background: white;
   width: 50vw;
   height: 100vh;
+  margin-right: 80px;
 }
 
 .catalogue-header {
@@ -154,16 +237,17 @@ input[type="password"] {
 }
 
 .catalogue-content {
-  margin-left: 30px;
   font-family: "Roboto", sans-serif;
   font-size: 12px;
+  margin-right: 80px;
 }
 
 .catalogue-recipe-titles {
   font-family: "Roboto", sans-serif;
   font-size: 12px;
   letter-spacing: 2px;
-  margin-right: 25px;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 
 .catalogue-recipe-info {
@@ -172,22 +256,45 @@ input[type="password"] {
   text-transform: lowercase;
 }
 
-.catalogue-recipe-line {
-  display: flex;
-}
-
 .recipe-container {
+  position: relative;
   margin-bottom: 30px;
   margin-top: 30px;
   border: 1px solid;
+  border-radius: 2px;
   padding: 20px;
-  margin-right: 50px;
+  margin-right: 100px;
 }
 
 .list-items {
   list-style-image: url(/bullet.jpg);
   list-style-position: inside;
   padding-left: 0;
+}
+
+.images {
+  width: 100px;
+  height: 100px;
+  margin-right: 5px;
+  object-fit: cover;
+}
+
+.images:hover {
+  position: relative;
+  top: -25px;
+  left: -35px;
+  width: 300px;
+  height: auto;
+  display: block;
+  z-index: 999;
+}
+
+.center-cropped {
+  width: 100px;
+  height: 100px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  overflow: hidden;
 }
 
 .search-container {
@@ -205,7 +312,6 @@ input[type="password"] {
 }
 
 .form-input {
-  border: none;
   border-radius: 2px;
   height: 15px;
   margin-top: 5px;
@@ -213,6 +319,7 @@ input[type="password"] {
   padding: 2px;
   background-color: white;
   border: 1px solid;
+  outline: none;
 }
 
 .search-form-input {
@@ -224,12 +331,82 @@ input[type="password"] {
   background-color: white;
   border-bottom: 1px solid;
   width: 150px;
+  outline: none;
 }
 
 .select-menu {
   background-color: black;
   color: white;
   border: solid;
+  outline: none;
+}
+
+.modal {
+  position: sticky;
+  bottom: 0;
+  width: 300px;
+  height: auto;
+  padding: 15px;
+  /* margin-top: -50vh;
+  margin-left: -50vw; */
+  border-radius: 2px;
+  border: 1px solid black;
+  z-index: 100;
+  background-color: white;
+}
+
+.modal-title {
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  border-bottom: 1px solid;
+  padding: 2px;
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  background: white;
+  color: black;
+  cursor: pointer;
+  border: 0;
+}
+
+.close:hover {
+  background: black;
+  color: white;
+}
+
+.mask {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(207, 211, 214, 0.8);
+  z-index: 50;
+  opacity: 1;
+  transition: 0.3s;
+}
+
+.edit-recipe-titles {
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  margin-top: 20px;
+}
+
+.edit-mat-con {
+  display: flex;
+}
+
+#file {
+  display: none;
 }
 
 /* 

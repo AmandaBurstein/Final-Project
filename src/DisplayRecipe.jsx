@@ -48,7 +48,10 @@ class UnconnectedRecipe extends Component {
         </div>
         <div>
           <div className="catalogue-recipe-titles">GLAZE BASE</div>
-          <div>{this.props.glazeBase}</div>
+          <div className="catalogue-recipe-info">
+            {this.props.glazeBase} {this.props.recipeVolume}{" "}
+            {this.props.volumeValue}
+          </div>
         </div>
         {this.props.recipe.map(material => {
           return (

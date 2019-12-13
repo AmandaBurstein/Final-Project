@@ -9,9 +9,14 @@ class UnconnectedCatalogue extends Component {
     this.state = {
       notes: [],
       file: "",
-      edit: false
+      edit: false,
+      showModal: false
     };
   }
+
+  closeModal = event => {
+    this.setState({ showModal: false });
+  };
 
   updateNotes = event => {
     this.setState({ notes: event.target.value });
@@ -37,7 +42,6 @@ class UnconnectedCatalogue extends Component {
         });
         let notes = await response.text();
         notes = JSON.parse(notes);
-        window.alert("Notes successfully added");
         this.setState({ notes: [] });
         let responseBody = await fetch("/all-recipes", { method: "GET" });
         let recipes = await responseBody.text();
@@ -58,9 +62,6 @@ class UnconnectedCatalogue extends Component {
       let body = await reqResponse.text();
       body = JSON.parse(body);
       console.log("photo response body", body);
-      if (body.success === true) {
-        window.alert("Photo successfully added");
-      }
       let response = await fetch("/all-recipes", { method: "GET" });
       let resBody = await response.text();
       resBody = JSON.parse(resBody);
@@ -93,13 +94,12 @@ class UnconnectedCatalogue extends Component {
     recipes = JSON.parse(recipes);
     console.log("recipes", recipes);
     this.props.dispatch({ type: "import-recipes", value: recipes });
-    window.alert("Recipe deleted from catalogue");
   };
 
   editHandler = async recipeName => {
     event.preventDefault();
     console.log("editHandler clicked");
-    this.setState({ edit: true });
+    this.setState({ edit: true, showModal: true });
     let name = recipeName;
     let data = new FormData();
     data.append("name", recipeName);
@@ -139,7 +139,7 @@ class UnconnectedCatalogue extends Component {
     recipes = JSON.parse(recipes);
     console.log("recipes", recipes);
     this.props.dispatch({ type: "import-recipes", value: recipes });
-    this.setState({ edit: false });
+    this.setState({ edit: false, showModal: false });
   };
 
   deleteNote = async recipeName => {
@@ -199,16 +199,26 @@ class UnconnectedCatalogue extends Component {
               console.log("recipe", recipe);
               return (
                 <div className="recipe-container">
+                  <button
+                    className="button edit-button"
+                    onClick={() => this.editHandler(recipe.recipeName)}
+                  >
+                    EDIT RECIPE
+                  </button>
                   <div className="catalogue-recipe-line">
                     <div className="catalogue-recipe-titles">NAME </div>
                     <div className="catalogue-recipe-info">
-                      {recipe.recipeName}
+                      <ul className="list-items">
+                        <li>{recipe.recipeName}</li>
+                      </ul>
                     </div>
                   </div>
                   <div className="catalogue-recipe-line">
                     <div className="catalogue-recipe-titles">GLAZE BASE </div>
                     <div className="catalogue-recipe-info">
-                      {recipe.glazeBase}
+                      <ul className="list-items">
+                        <li> {recipe.glazeBase}</li>
+                      </ul>
                     </div>
                   </div>
                   <div className="catalogue-recipe-line">
@@ -217,22 +227,28 @@ class UnconnectedCatalogue extends Component {
                       {recipe.ingredients.map(ingredient => {
                         return (
                           <div>
-                            <div>
-                              {ingredient.name} {ingredient.concentration}%
-                            </div>
+                            <ul className="list-items">
+                              <li>
+                                {ingredient.name} {ingredient.concentration}%
+                              </li>
+                            </ul>
                           </div>
                         );
                       })}
                     </div>
                   </div>
                   <div>
-                    <div className="catalogue-recipe-titles">NOTES</div>
+                    {recipe.notes ? (
+                      <div className="catalogue-recipe-titles">NOTES</div>
+                    ) : null}
                     {recipe.notes
                       ? recipe.notes.map(note => {
                           return (
-                            <ul className="list-items">
-                              <li>{note}</li>
-                            </ul>
+                            <div>
+                              <ul className="list-items">
+                                <li>{note}</li>
+                              </ul>
+                            </div>
                           );
                         })
                       : null}
@@ -240,45 +256,45 @@ class UnconnectedCatalogue extends Component {
                   <div>
                     {recipe.frontendPath
                       ? recipe.frontendPath.map(path => {
-                          return <img src={path}></img>;
+                          return <img className="images" src={path}></img>;
                         })
                       : null}
                   </div>
                   <form onSubmit={() => this.submitHandler(recipe.recipeName)}>
-                    <input
-                      className="form-input"
-                      type="text"
-                      placeholder="Add notes..."
-                      onChange={this.updateNotes}
-                      value={this.state.notes}
-                    />
-                    <input
-                      className="form-input"
-                      type="file"
-                      onChange={this.photoHandler}
-                    />
+                    <div className="add-notes-photo">
+                      <input
+                        className="form-input"
+                        type="text"
+                        placeholder="Add notes..."
+                        onChange={this.updateNotes}
+                        value={this.state.notes}
+                      />
+                      <label className="file-button" for="file">
+                        ADD PHOTO
+                      </label>
+                      <input
+                        id="file"
+                        type="file"
+                        ref={this.fileInputRef}
+                        onChange={this.photoHandler}
+                      />
+                    </div>
                     <input className="button" type="submit" value="SUBMIT" />
                   </form>
                   <button
-                    className="button"
+                    className="button delete-button"
                     onClick={() => this.deleteNote(recipe.recipeName)}
                   >
                     DELETE NOTE
                   </button>
                   <button
-                    className="button"
+                    className="button delete-button"
                     onClick={() => this.deletePhoto(recipe.recipeName)}
                   >
                     DELETE PHOTO
                   </button>
                   <button
-                    className="button"
-                    onClick={() => this.editHandler(recipe.recipeName)}
-                  >
-                    EDIT RECIPE
-                  </button>
-                  <button
-                    className="button"
+                    className="button delete-button"
                     onClick={() => this.deleteHandler(recipe.recipeName)}
                   >
                     DELETE RECIPE
@@ -287,15 +303,33 @@ class UnconnectedCatalogue extends Component {
               );
             })}
           </div>
-          <div>
+          <div
+            className="mask"
+            style={{ visibility: this.state.showModal ? "visible" : "hidden" }}
+          />
+          <div
+            className="modal"
+            style={{ visibility: this.state.showModal ? "visible" : "hidden" }}
+          >
             <div>
-              {this.state.edit
-                ? this.props.editRecipe.map(this.displayEditInput)
-                : null}
+              {this.state.showModal ? (
+                <div>
+                  <div className="modal-title">EDIT RECIPE</div>
+                  <div>{this.props.editRecipe.map(this.displayEditInput)}</div>
+                  <div>
+                    <button
+                      className="submit-edit-button"
+                      onClick={this.submitRecipe}
+                    >
+                      SUBMIT EDITED RECIPE
+                    </button>
+                  </div>
+                  <button className="close" onClick={this.closeModal}>
+                    X
+                  </button>
+                </div>
+              ) : null}
             </div>
-            {this.state.edit ? (
-              <button onClick={this.submitRecipe}>SUBMIT EDITED RECIPE</button>
-            ) : null}
           </div>
         </div>
       </div>

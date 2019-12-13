@@ -125,7 +125,6 @@ input[type="password"] {
   letter-spacing: 1px;
   outline: none;
   font-size: 11px;
-  margin-top: 2px;
 }
 
 .file-button:hover {
@@ -322,6 +321,16 @@ input[type="password"] {
   outline: none;
 }
 
+.note-form-input {
+  border-radius: 2px;
+  height: 15px;
+  margin-right: 5px;
+  padding: 2px;
+  background-color: white;
+  border: 1px solid;
+  outline: none;
+}
+
 .search-form-input {
   border: none;
   height: 15px;
@@ -403,6 +412,14 @@ input[type="password"] {
 
 .edit-mat-con {
   display: flex;
+}
+
+.upload-success {
+  font-family: "Roboto", sans-serif, italic;
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: #ff8b00;
+  margin-bottom: 4px;
 }
 
 #file {

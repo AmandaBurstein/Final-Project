@@ -12,6 +12,11 @@ class UnconnectedRecipeCard extends Component {
     };
   }
 
+  photoHandler = event => {
+    console.log("event.target.files[0]", event.target.files[0]);
+    this.setState({ file: event.target.files[0] });
+  };
+
   closeModal = event => {
     this.setState({ showModal: false });
   };
@@ -40,7 +45,7 @@ class UnconnectedRecipeCard extends Component {
     } catch (error) {
       window.alert("Unable to add notes");
     }
-    if (this.state.file !== "") {
+    if (this.state.file !== undefined) {
       let formData = new FormData();
       formData.append("image", this.state.file);
       formData.append("recipeName", recipeName);
@@ -57,11 +62,6 @@ class UnconnectedRecipeCard extends Component {
       this.props.dispatch({ type: "import-recipes", value: resBody });
       this.setState({ file: undefined });
     }
-  };
-
-  photoHandler = event => {
-    console.log("event.target.files[0]", event.target.files[0]);
-    this.setState({ file: event.target.files[0] });
   };
 
   deleteHandler = async recipeName => {
@@ -184,7 +184,7 @@ class UnconnectedRecipeCard extends Component {
     recipes = JSON.parse(recipes);
     console.log("recipes", recipes);
     this.props.dispatch({ type: "import-recipes", value: recipes });
-    this.setState({ edit: false, showModal: false });
+    this.setState({ showModal: false });
   };
 
   render = () => {
@@ -267,10 +267,10 @@ class UnconnectedRecipeCard extends Component {
                 onChange={this.updateNotes}
                 value={this.state.notes}
               />
-              <label className="file-button" for="file">
-                ADD PHOTO
-              </label>
-              <input id="file" type="file" onChange={this.photoHandler} />
+              <div className="file-input">
+                <input type="file" onChange={this.photoHandler} />
+                <span className="add-photo-button">ADD PHOTO</span>
+              </div>
               <div className="upload-success">{fileUploadFeedback}</div>
             </div>
             <input className="button" type="submit" value="SUBMIT" />

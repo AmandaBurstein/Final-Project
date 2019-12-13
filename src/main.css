@@ -424,10 +424,24 @@ input[type="password"] {
   margin-bottom: 4px;
 }
 
-#file {
-  display: none;
+.file-input > [type="file"] {
+  position: absolute;
+  width: 100;
+  height: 20;
+  opacity: 0;
+  z-index: 10;
+  cursor: pointer;
 }
 
+.add-photo-button {
+  margin-top: 8px;
+  background-color: white;
+  border: none;
+  padding: 5px;
+  letter-spacing: 1px;
+  outline: none;
+  font-size: 11px;
+}
 /* 
 
 font-family: 'Lato', sans-serif; */

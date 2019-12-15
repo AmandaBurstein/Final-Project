@@ -475,6 +475,7 @@ input[type="password"] {
 }
 
 .about-container {
+  height: 100%;
   font-family: "Roboto", sans-serif;
   font-size: 14px;
   font-style: thin;
@@ -482,13 +483,13 @@ input[type="password"] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 50px;
+  align-content: center;
   background: white;
   border-radius: 5px;
   padding: 20px;
-  padding-bottom: 60px;
   margin-left: 250px;
   margin-right: 250px;
+  margin-top: 25px;
 }
 
 .header-logo-about {
@@ -499,6 +500,14 @@ input[type="password"] {
   margin-top: 12px;
   text-decoration: none;
   color: black;
+}
+
+.about-page-container {
+  background: url(/gloop.jpg);
+  height: 100vh;
+  box-shadow: inset 0 0 0 1000px rgba(249, 248, 244, 0.42);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .about-link {
@@ -551,7 +560,8 @@ input[type="password"] {
 
 .about-title {
   margin-bottom: 20px;
-  margin-top: 40px;
+  margin-top: 30px;
+  text-align: center;
 }
 
 .about-description {

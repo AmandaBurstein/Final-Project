@@ -18,6 +18,9 @@ class UnconnectedNavbar extends Component {
             GLAZED
           </Link>
         </div>
+        <div className="navbar-details">
+          Calculate, save, and catalogue your favourite glaze recipes
+        </div>
         <div className="navbar-logout-container">
           <div className="navbar-logout">
             <div onClick={this.logoutHandler}>LOGOUT</div>

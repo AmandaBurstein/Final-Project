@@ -90,6 +90,7 @@ app.post("/add-recipe", upload.none(), (req, res) => {
   console.log("req.body.materials", req.body.materials);
   let username = req.body.username;
   let recipeName = req.body.name;
+  recipeName = recipeName.toLowerCase();
   let materials = JSON.parse(req.body.materials);
   let colourTags = req.body.colourTags;
   let glazeBase = req.body.glazeBase;
@@ -124,6 +125,7 @@ app.post("/add-recipe", upload.none(), (req, res) => {
 app.post("/get-recipe", upload.none(), (req, res) => {
   console.log("/get-recipe endpoint hit with", req.body.name);
   let recipeName = req.body.name;
+  recipeName = recipeName.toLowerCase();
   let totalConcentration = req.body.concentration * 0.01;
   dbo
     .collection("glaze-recipes")
@@ -187,6 +189,7 @@ app.post("/add-notes", upload.none(), (req, res) => {
   console.log("/add-notes endpoint hit");
   let notes = JSON.parse(req.body.notes);
   let name = req.body.recipeName;
+  name = name.toLowerCase();
   console.log("notes", notes);
   dbo
     .collection("glaze-recipes")
@@ -232,6 +235,7 @@ app.post("/add-notes", upload.none(), (req, res) => {
 app.post("/delete-note", upload.none(), (req, res) => {
   console.log("/delete-note endpoint hit");
   let name = req.body.name;
+  name = name.toLowerCase();
   dbo
     .collection("glaze-recipes")
     .updateOne({ recipeName: name }, { $pop: { notes: 1 } })
@@ -250,6 +254,7 @@ app.post("/add-photo", upload.single("image"), (req, res) => {
   console.log("/add-photo endpoint hit");
   console.log("req.file", req.file);
   let name = req.body.recipeName;
+  name = name.toLowerCase();
   let file = req.file;
   let frontendPath = "/uploads/" + file.filename;
   dbo
@@ -305,6 +310,7 @@ app.post("/add-photo", upload.single("image"), (req, res) => {
 app.post("/delete-photo", upload.none(), (req, res) => {
   console.log("/delete-photo endpoint hit");
   let name = req.body.name;
+  name = name.toLowerCase();
   dbo
     .collection("glaze-recipes")
     .updateOne({ recipeName: name }, { $pop: { frontendPath: 1 } })
@@ -322,6 +328,7 @@ app.post("/delete-photo", upload.none(), (req, res) => {
 app.post("/edit-recipe", upload.none(), (req, res) => {
   console.log("/edit-recipe endpoint hit with", req.body.name);
   let recipeName = req.body.name;
+  recipeName = recipeName.toLowerCase();
   dbo
     .collection("glaze-recipes")
     .findOne({ recipeName: recipeName }, (error, recipe) => {
@@ -345,6 +352,7 @@ app.post("/update-recipe", upload.none(), (req, res) => {
   console.log("/update-recipe endpoint hit");
   let name = req.body.recipeName;
   console.log("name", name);
+  name = name.toLowerCase();
   let base = req.body.glazeBase;
   let ing = JSON.parse(req.body.ingredients);
   let tags = req.body.colourTags;

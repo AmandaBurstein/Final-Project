@@ -34,35 +34,40 @@ class UnconnectedRecipe extends Component {
   render = () => {
     return (
       <div className="recipe-container">
-        <div>
-          <div className="catalogue-recipe-titles">NAME</div>
-          <div className="catalogue-recipe-info">{this.props.name}</div>
-        </div>
-        <div>
+        <div className="calculated-recipe">
           <div>
-            <div className="catalogue-recipe-titles">VOLUME</div>
-            <div className="catalogue-recipe-info">
-              {this.props.recipeVolume} {this.props.volumeValue}
+            <div className="catalogue-recipe-titles">NAME</div>
+            <div className="catalogue-recipe-info">{this.props.name}</div>
+          </div>
+          <div>
+            <div>
+              <div className="catalogue-recipe-titles">VOLUME</div>
+              <div className="catalogue-recipe-info">
+                {this.props.recipeVolume} {this.props.volumeValue}
+              </div>
             </div>
           </div>
-        </div>
-        <div>
-          <div className="catalogue-recipe-titles">RECIPE</div>
-          <div className="catalogue-recipe-info">
-            {this.props.glazeBase} {this.props.recipeVolume}{" "}
-            {this.props.volumeValue}
-          </div>
-        </div>
-        {this.props.recipe.map(material => {
-          return (
+          <div>
+            <div className="catalogue-recipe-titles">RECIPE</div>
             <div className="catalogue-recipe-info">
-              {material.name} {material.amount} {material.materialValue}
+              {this.props.glazeBase} {this.props.recipeVolume}{" "}
+              {this.props.volumeValue}
             </div>
-          );
-        })}
-        <button className="button" onClick={this.addRecipeHandler}>
-          ADD RECIPE TO CATALOGUE
-        </button>
+          </div>
+          {this.props.recipe.map(material => {
+            return (
+              <div className="catalogue-recipe-info">
+                {material.name} {material.amount} {material.materialValue}
+              </div>
+            );
+          })}
+          <button
+            className="button edit-button"
+            onClick={this.addRecipeHandler}
+          >
+            ADD RECIPE TO CATALOGUE
+          </button>
+        </div>
       </div>
     );
   };

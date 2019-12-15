@@ -11,13 +11,31 @@ body {
   background-size: cover;
 }
 
+.homepage-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+}
+
+.header-details {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  letter-spacing: 2px;
+  width: 750px;
+  text-align: center;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
 .header-logo {
   font-family: "Covered By Your Grace", cursive;
-  font-size: 50px;
+  font-size: 60px;
   display: flex;
   justify-content: center;
   background-color: white;
   padding: 5px;
+  margin-top: 20px;
 }
 
 .signup-login-container {
@@ -145,7 +163,7 @@ input[type="password"] {
   display: flex;
   position: relative;
   background: url(/gloop.jpg);
-  box-shadow: inset 0 0 0 1000px rgba(249, 248, 244, 0.69);
+  box-shadow: inset 0 0 0 1000px rgba(249, 248, 244, 0.849);
   text-decoration: none;
   justify-content: center;
   height: 100px;
@@ -163,10 +181,19 @@ input[type="password"] {
   color: black;
 }
 
+.navbar-details {
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  position: absolute;
+  left: 20px;
+  bottom: 10px;
+}
+
 .navbar-logout {
   position: absolute;
-  right: 0px;
-  bottom: 0px;
+  right: 5px;
+  top: 10px;
   display: flex;
   font-family: "Roboto", sans-serif;
   font-size: 12px;
@@ -183,8 +210,8 @@ input[type="password"] {
   color: white;
   background-color: black;
   position: absolute;
-  right: 0px;
-  bottom: 0px;
+  right: 5px;
+  top: 10px;
   display: flex;
   font-family: "Roboto", sans-serif;
   font-size: 12px;
@@ -421,7 +448,7 @@ input[type="password"] {
   font-size: 12px;
   letter-spacing: 2px;
   color: #ff8b00;
-  margin-bottom: 4px;
+  margin-left: 8px;
 }
 
 .file-input > [type="file"] {
@@ -442,7 +469,91 @@ input[type="password"] {
   outline: none;
   font-size: 11px;
 }
-/* 
 
-font-family: 'Lato', sans-serif; */
-/* font-family: "Armata", sans-serif; */
+.add-catalogue {
+  margin-top: 20px;
+}
+
+.about-container {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-style: thin;
+  letter-spacing: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  background: white;
+  border-radius: 5px;
+  padding: 20px;
+  padding-bottom: 60px;
+  margin-left: 250px;
+  margin-right: 250px;
+}
+
+.header-logo-about {
+  font-family: "Covered By Your Grace", cursive;
+  font-size: 60px;
+  display: flex;
+  justify-content: center;
+  margin-top: 12px;
+  text-decoration: none;
+  color: black;
+}
+
+.about-link {
+  position: absolute;
+  right: 5px;
+  top: 10px;
+  display: flex;
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  border: none;
+  color: black;
+  padding: 5px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.about-link:hover {
+  position: absolute;
+  right: 5px;
+  top: 10px;
+  display: flex;
+  font-family: "Roboto", sans-serif;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-decoration: none;
+  border: none;
+  color: white;
+  background: black;
+  padding: 5px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.about-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+}
+
+.about-heading {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-align: center;
+  padding: 8px;
+}
+
+.about-title {
+  margin-bottom: 20px;
+  margin-top: 40px;
+}
+
+.about-description {
+  text-align: justify;
+}

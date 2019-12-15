@@ -6,7 +6,7 @@ class UnconnectedRecipeCard extends Component {
   constructor() {
     super();
     this.state = {
-      notes: [],
+      notes: "",
       file: undefined,
       showModal: false
     };

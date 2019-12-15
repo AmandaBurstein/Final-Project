@@ -8,6 +8,7 @@ import Login from "./Login.jsx";
 import Homepage from "./Homepage.jsx";
 import Navbar from "./Navbar.jsx";
 import GlazeCatalogue from "./GlazeCatalogue.jsx";
+import About from "./About.jsx";
 
 class UnconnectedApp extends Component {
   render = () => {
@@ -32,6 +33,7 @@ class UnconnectedApp extends Component {
             )}
           />
           <Route exact={true} path="/" component={Homepage} />
+          <Route exact={true} path="/about" component={About} />
           <Route exact={true} path="/catalogue" component={GlazeCatalogue} />
           <Route exact={true} path="/signup" component={Signup} />
           <Route exact={true} path="/login" component={Login} />
